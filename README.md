@@ -4,10 +4,11 @@ Static site for heelmintgames.com, served via GitHub Pages.
 
 ## Local preview
 
-Open `index.html` in a browser, or run a simple local server:
+Run a local server that supports HTTP range requests (needed for video seeking):
 
 ```
-python3 -m http.server 8000
+npx http-server -p 8000
 ```
 
-Then visit http://localhost:8000.
+Then visit http://localhost:8000. (Avoid `python3 -m http.server` — it can't
+serve byte ranges, so seeking in the portfolio videos won't work.)

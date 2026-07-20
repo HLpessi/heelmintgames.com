@@ -12,9 +12,16 @@
         <p class="eyebrow">Video Editor &amp; Game Developer</p>
         <h1>Samuli Pessi</h1>
         <p class="tagline">End-to-end video production for games.</p>
+        <nav class="tabs" role="tablist" aria-label="Portfolio sections">
+            <button class="tab-btn active" data-tab="videos" id="tab-videos" role="tab"
+                aria-selected="true" aria-controls="panel-videos">Videos</button>
+            <button class="tab-btn" data-tab="games" id="tab-games" role="tab"
+                aria-selected="false" aria-controls="panel-games">Games</button>
+        </nav>
     </header>
 
     <main>
+        <div id="panel-videos" role="tabpanel" aria-labelledby="tab-videos">
         <section>
             <h2>Trailers</h2>
 
@@ -241,6 +248,11 @@
                 </div>
             </div>
         </section>
+        </div>
+
+        <div id="panel-games" role="tabpanel" aria-labelledby="tab-games" hidden>
+            <p class="placeholder">Games coming soon.</p>
+        </div>
 
         <section class="contact">
             <h2>Get in touch</h2>
@@ -263,6 +275,36 @@
     </div>
 
     <script>
+    /* --- tabs --- */
+    (function () {
+        var tabs = document.querySelectorAll('.tab-btn');
+        var panels = {
+            videos: document.getElementById('panel-videos'),
+            games: document.getElementById('panel-games')
+        };
+
+        function select(name) {
+            if (!panels[name]) return;
+            tabs.forEach(function (t) {
+                var on = t.dataset.tab === name;
+                t.classList.toggle('active', on);
+                t.setAttribute('aria-selected', on);
+            });
+            Object.keys(panels).forEach(function (k) {
+                panels[k].hidden = k !== name;
+            });
+        }
+
+        tabs.forEach(function (t) {
+            t.addEventListener('click', function () {
+                select(t.dataset.tab);
+                history.replaceState(null, '', '#' + t.dataset.tab);
+            });
+        });
+
+        if (location.hash === '#games') select('games');
+    })();
+
     /* --- lightbox --- */
     (function () {
         var lb = document.getElementById('lightbox');
