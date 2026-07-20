@@ -186,29 +186,37 @@ body.portfolio .site-footer {
     opacity: 0.6;
 }
 
-/* --- thumbnail tiles --- */
+/* --- thumbnail tiles: uniform grid per section --- */
 body.portfolio .tiles {
-    --tile-h: clamp(110px, 16vw, 175px);
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.7rem;
+    display: grid;
+    gap: 12px;
 }
 
+/* portrait sections (shorts): ~2 cols mobile, ~5 desktop */
+body.portfolio .tiles.portrait,
+body.portfolio .tiles.photos {
+    grid-template-columns: repeat(auto-fill, minmax(clamp(140px, 30vw, 172px), 1fr));
+}
+
+/* landscape section: ~1-2 cols mobile, ~4 desktop */
+body.portfolio .tiles.landscape {
+    grid-template-columns: repeat(auto-fill, minmax(clamp(220px, 60vw, 300px), 1fr));
+}
+
+/* every tile in a section is the same size; odd-aspect content crops to fill */
+body.portfolio .tiles.portrait  .tile { aspect-ratio: 9 / 16; }
+body.portfolio .tiles.landscape .tile { aspect-ratio: 16 / 9; }
+body.portfolio .tiles.photos    .tile { aspect-ratio: 1290 / 2796; }
+
 body.portfolio .tile {
-    height: var(--tile-h);
     position: relative;
     border: 0;
     padding: 0;
     background: #000;
-    border-radius: 10px;
+    border-radius: 12px;
     overflow: hidden;
     cursor: pointer;
-    flex: none;
 }
-
-body.portfolio .tile.wide  { aspect-ratio: 16 / 9; }
-body.portfolio .tile.vert  { aspect-ratio: 9 / 16; }
-body.portfolio .tile.photo { aspect-ratio: 1290 / 2796; }
 
 body.portfolio .tile img {
     width: 100%;

@@ -22,7 +22,7 @@
     <main>
         <section>
             <h2>Trailers</h2>
-            <div class="tiles">
+            <div class="tiles portrait">
                 <button class="tile wide" data-yt="Nun_W6tMuik" data-title="Badland Party Trailer" aria-label="Play: Badland Party Trailer">
                     <img src="https://i.ytimg.com/vi/Nun_W6tMuik/maxresdefault.jpg" alt="Badland Party Trailer" loading="lazy">
                     <span class="play" aria-hidden="true"></span>
@@ -44,7 +44,7 @@
 
         <section>
             <h2>UA / TikTok</h2>
-            <div class="tiles">
+            <div class="tiles portrait">
                 <button class="tile vert" data-yt="XnC6nwjuS8E" data-title="UA Play Ad" aria-label="Play: UA Play Ad">
                     <img src="https://i.ytimg.com/vi/XnC6nwjuS8E/oardefault.jpg" alt="UA Play Ad" loading="lazy">
                     <span class="play" aria-hidden="true"></span>
@@ -82,7 +82,7 @@
 
         <section>
             <h2>Motion Design / Other</h2>
-            <div class="tiles">
+            <div class="tiles landscape">
                 <button class="tile wide" data-yt="OiX0lsBbWH4" data-title="Battle Legion Logo Animation" aria-label="Play: Battle Legion Logo Animation">
                     <img src="https://i.ytimg.com/vi/OiX0lsBbWH4/maxresdefault.jpg" alt="Battle Legion Logo Animation" loading="lazy">
                     <span class="play" aria-hidden="true"></span>
@@ -112,7 +112,7 @@
 
         <section>
             <h2>Photos</h2>
-            <div class="tiles">
+            <div class="tiles photos">
                 <button class="tile photo" data-img="../photos/web/altegro1.jpg" data-title="Altegro" aria-label="View photo: Altegro 1">
                     <img src="../photos/thumbs/altegro1.jpg" alt="Altegro photo 1" loading="lazy">
                 </button>
@@ -171,6 +171,7 @@
     </div>
 
     <script>
+    /* --- lightbox --- */
     (function () {
         var lb = document.getElementById('lightbox');
         var content = lb.querySelector('.lb-content');
@@ -182,7 +183,8 @@
             content.classList.toggle('vert', !tile.classList.contains('wide'));
             if (tile.dataset.yt) {
                 var f = document.createElement('iframe');
-                f.src = 'https://www.youtube.com/embed/' + tile.dataset.yt + '?autoplay=1&rel=0';
+                f.src = 'https://www.youtube.com/embed/' + tile.dataset.yt +
+                    '?autoplay=1&rel=0&controls=1&modestbranding=1&playsinline=1&iv_load_policy=3';
                 f.title = tile.dataset.title;
                 f.allow = 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture';
                 f.allowFullscreen = true;
