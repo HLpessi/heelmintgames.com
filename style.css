@@ -186,27 +186,78 @@ body.portfolio .site-footer {
     opacity: 0.6;
 }
 
-/* --- thumbnail tiles: uniform grid per section --- */
+/* --- case rows: description + media, alternating sides --- */
+body.portfolio .case {
+    display: grid;
+    grid-template-columns: minmax(200px, 280px) 1fr;
+    gap: 1.25rem 2.5rem;
+    align-items: center;
+    margin: 2.5rem 0;
+}
+
+body.portfolio .case.flip {
+    grid-template-columns: 1fr minmax(200px, 280px);
+}
+
+body.portfolio .case.flip .case-text  { order: 2; }
+body.portfolio .case.flip .case-media { order: 1; }
+
+body.portfolio .case h3 {
+    font-size: 1.15rem;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.5rem;
+}
+
+body.portfolio .case p {
+    font-size: 0.95rem;
+    line-height: 1.55;
+    opacity: 0.75;
+}
+
+/* --- media grids inside cases --- */
 body.portfolio .tiles {
     display: grid;
     gap: 12px;
 }
 
-/* portrait sections (shorts): ~2 cols mobile, ~5 desktop */
-body.portfolio .tiles.portrait,
-body.portfolio .tiles.photos {
-    grid-template-columns: repeat(auto-fill, minmax(clamp(140px, 30vw, 172px), 1fr));
+body.portfolio .tiles.portrait {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    max-width: 640px;
 }
 
-/* landscape section: ~1-2 cols mobile, ~4 desktop */
 body.portfolio .tiles.landscape {
-    grid-template-columns: repeat(auto-fill, minmax(clamp(220px, 60vw, 300px), 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    max-width: 760px;
 }
 
-/* every tile in a section is the same size; odd-aspect content crops to fill */
+/* a lone landscape video gets to be bigger */
+body.portfolio .tiles.landscape .tile:only-child {
+    grid-column: 1 / -1;
+    max-width: 560px;
+}
+
+body.portfolio .tiles.photos {
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+}
+
+/* tile aspect per media type; odd-aspect content crops to fill */
 body.portfolio .tiles.portrait  .tile { aspect-ratio: 9 / 16; }
 body.portfolio .tiles.landscape .tile { aspect-ratio: 16 / 9; }
 body.portfolio .tiles.photos    .tile { aspect-ratio: 1290 / 2796; }
+
+/* stack text above media on small screens */
+@media (max-width: 760px) {
+    body.portfolio .case,
+    body.portfolio .case.flip {
+        grid-template-columns: 1fr;
+        align-items: start;
+    }
+    body.portfolio .case.flip .case-text  { order: 0; }
+    body.portfolio .case.flip .case-media { order: 0; }
+    body.portfolio .tiles.photos {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+}
 
 body.portfolio .tile {
     position: relative;
