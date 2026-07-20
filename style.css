@@ -314,6 +314,7 @@ body.portfolio .tile:focus-visible .play {
 }
 
 .lb-content iframe,
+.lb-content video,
 .lb-content img {
     width: 100%;
     height: 100%;
