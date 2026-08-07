@@ -214,6 +214,21 @@ body.portfolio .case p {
     opacity: 0.75;
 }
 
+body.portfolio .case .case-link {
+    margin-top: 0.6rem;
+    opacity: 1;
+}
+
+body.portfolio .case-link a {
+    color: var(--accent);
+    text-decoration: none;
+    font-weight: 600;
+}
+
+body.portfolio .case-link a:hover {
+    text-decoration: underline;
+}
+
 /* --- media inside cases: shrink-to-fit so the text gap stays constant --- */
 body.portfolio .tiles {
     display: flex;
