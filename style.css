@@ -244,6 +244,7 @@ body.portfolio .tiles.landscape { max-width: 700px; }
 body.portfolio .tiles.portrait .tile  { width: 200px; aspect-ratio: 9 / 16; }
 body.portfolio .tiles.landscape .tile { width: 340px; aspect-ratio: 16 / 9; }
 body.portfolio .tiles.landscape .tile:only-child { width: 560px; }
+body.portfolio .tiles.portrait .tile:only-child  { width: 260px; }
 body.portfolio .tiles.photos .tile    { width: 106px; aspect-ratio: 1290 / 2796; }
 
 /* stack text above media on small screens */
@@ -264,6 +265,9 @@ body.portfolio .tiles.photos .tile    { width: 106px; aspect-ratio: 1290 / 2796;
     body.portfolio .tiles.landscape .tile,
     body.portfolio .tiles.landscape .tile:only-child {
         width: 100%;
+    }
+    body.portfolio .tiles.portrait .tile:only-child {
+        width: 60%;
     }
 }
 

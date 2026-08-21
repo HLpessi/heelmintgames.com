@@ -16,6 +16,7 @@ encode() {
     echo "done: $out ($(du -h "web/$out" | cut -f1))"
 }
 
+encode "Rumble August 2026 Clean.mp4"                                 "rumble-ua.mp4"
 encode "hypehype app preview 1.mp4"                                  "hypehype-app-preview-1.mp4"
 encode "hypehype app preview 2.mp4"                                  "hypehype-app-preview-2.mp4"
 encode "App Preview Create Remix English 1080 x 1920 5.5 Inch.mp4"   "hypehype-create-remix.mp4"
