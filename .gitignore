@@ -3,3 +3,6 @@
 photos/*.png
 videos/*.mp4
 videos/*.MP4
+
+# Portfolio kept off the live site (2026-09-18); restore by copying back
+_archive/
