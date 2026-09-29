@@ -37,7 +37,7 @@
                     <a class="dl-btn" href="https://apps.apple.com/fi/app/tiny-tractor-farming-sim/id6812500088">Download</a>
                 </div>
             </div>
-            <p class="open-hint" id="open-hint" hidden>This browser cannot open the store. Tap <b>&ctdot;</b> and choose <b>Open in browser</b>.</p>
+            <p class="open-hint" id="open-hint" hidden>If the store does not open here, tap <b>&ctdot;</b> and choose <b>Open in browser</b>.</p>
         </div>
 
         <figure class="phone">
@@ -55,10 +55,11 @@
         <a href="mailto:pessi@heelmintgames.com">pessi@heelmintgames.com</a>
     </footer>
     <script>
-    // In-app browsers (TikTok, Instagram, Facebook) cannot hand the store's
-    // own URL scheme on, so a plain https store link dies with "action can't
-    // be completed". On those, open the scheme ourselves; if the page is still
-    // here after that, say how to open it in a real browser.
+    // In-app browsers (TikTok, Instagram, Facebook) refuse to hand a store URL
+    // on to the store app, so a plain https link dies with "action can't be
+    // completed". iOS only lets another app open straight from a tap, so the
+    // links themselves become the store's own schemes there, and the hint on
+    // how to reach a real browser shows at once instead of after a failure.
     (function () {
         var ua = navigator.userAgent || "";
         var inApp = /musical_ly|Bytedance|TikTok|Instagram|FBAN|FBAV|Snapchat|Line\//i.test(ua);
@@ -66,31 +67,18 @@
         var ios = /iPhone|iPad|iPod/i.test(ua);
         var android = /Android/i.test(ua);
         var APPLE_ID = "6812500088", PLAY_ID = "com.heelmint.farming";
-        var hint = document.getElementById("open-hint");
-        document.getElementById("stores").addEventListener("click", function (e) {
-            var a = e.target.closest("a");
-            if (!a) return;
-            var apple = a.href.indexOf("apps.apple.com") !== -1;
-            if (apple && ios) {
-                e.preventDefault();
-                tryOpen(["itms-appss://apps.apple.com/app/id" + APPLE_ID,
-                         "x-safari-https://apps.apple.com/fi/app/tiny-tractor-farming-sim/id" + APPLE_ID]);
-            } else if (!apple && android) {
-                e.preventDefault();
-                tryOpen(["market://details?id=" + PLAY_ID,
-                         "intent://details?id=" + PLAY_ID + "#Intent;scheme=market;package=com.android.vending;end"]);
-            }
-        });
-        function tryOpen(urls) {
-            var i = 0, left = Date.now();
-            function next() {
-                if (i >= urls.length) { hint.hidden = false; return; }
-                location.href = urls[i++];
-                // a hand-off that worked hides the page; a refused one leaves it
-                setTimeout(function () { if (!document.hidden && Date.now() - left < 4000) next(); }, 1200);
-            }
-            next();
+        var APPLE_WEB = "https://apps.apple.com/fi/app/tiny-tractor-farming-sim/id" + APPLE_ID;
+        var stores = document.getElementById("stores");
+        if (ios) {
+            // the badge tries the App Store's own scheme, the button asks Safari
+            // to open the store page: whichever the host lets through, wins
+            stores.querySelector(".app-store-badge").href = "itms-appss://apps.apple.com/app/id" + APPLE_ID;
+            stores.querySelector(".store:nth-child(2) .dl-btn").href = "x-safari-" + APPLE_WEB;
+        } else if (android) {
+            stores.querySelector(".play-badge").href = "market://details?id=" + PLAY_ID;
+            stores.querySelector(".store:nth-child(1) .dl-btn").href = "intent://details?id=" + PLAY_ID + "#Intent;scheme=market;package=com.android.vending;end";
         }
+        document.getElementById("open-hint").hidden = false;
     })();
     </script>
 </body>
