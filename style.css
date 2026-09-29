@@ -255,6 +255,68 @@ body.home .open-hint b {
     color: var(--fg);
 }
 
+/* the in-app browser popup: a card in the middle, and an arrow bouncing at
+   the host's own menu button in the top right corner of the screen */
+body.home .inapp-pop {
+    position: fixed;
+    inset: 0;
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 1.5rem;
+    background: rgba(0, 0, 0, 0.78);
+}
+
+body.home .inapp-pop[hidden] {
+    display: none;
+}
+
+body.home .inapp-card {
+    max-width: 22rem;
+    padding: 1.4rem 1.5rem 1.2rem;
+    border-radius: 16px;
+    background: #1c1c21;
+    border: 1.5px solid #3a3a40;
+    text-align: center;
+    font-size: 1.15rem;
+    line-height: 1.45;
+}
+
+body.home .inapp-card p {
+    margin: 0 0 1rem;
+}
+
+body.home .inapp-card b {
+    color: var(--accent);
+}
+
+body.home .inapp-card button {
+    padding: 0.55rem 2rem;
+    border: 0;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #0e0e10;
+    font: inherit;
+    font-weight: 700;
+}
+
+body.home .inapp-arrow {
+    position: fixed;
+    top: 6px;
+    right: 14px;
+    width: 46px;
+    height: 69px;
+    fill: var(--accent);
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+    animation: arrow-nudge 0.9s ease-in-out infinite;
+}
+
+@keyframes arrow-nudge {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(10px); }
+}
+
 body.home .dl-btn:hover,
 body.home .dl-btn:focus-visible {
     transform: translateY(-1px);

@@ -38,6 +38,13 @@
                 </div>
             </div>
             <p class="open-hint" id="open-hint" hidden>If the store does not open here, tap <b>&ctdot;</b> and choose <b>Open in browser</b>.</p>
+            <div class="inapp-pop" id="inapp-pop" hidden role="dialog" aria-label="How to open the App Store">
+                <svg class="inapp-arrow" viewBox="0 0 60 90" aria-hidden="true"><path d="M30 6 L52 34 L38 34 L38 84 L22 84 L22 34 L8 34 Z"/></svg>
+                <div class="inapp-card">
+                    <p>Tap <b>&ctdot;</b> in the top right corner and choose <b>Open in browser</b>.</p>
+                    <button type="button" id="inapp-ok">OK</button>
+                </div>
+            </div>
         </div>
 
         <figure class="phone">
@@ -78,7 +85,15 @@
             stores.querySelector(".play-badge").href = "market://details?id=" + PLAY_ID;
             stores.querySelector(".store:nth-child(1) .dl-btn").href = "intent://details?id=" + PLAY_ID + "#Intent;scheme=market;package=com.android.vending;end";
         }
-        document.getElementById("open-hint").hidden = false;
+        if (ios) {
+            // the tap still goes to the scheme; the popup covers the page for
+            // the case the host refuses it, arrow on the host's own menu button
+            var pop = document.getElementById("inapp-pop");
+            stores.querySelector(".store:nth-child(2)").addEventListener("click", function () { pop.hidden = false; });
+            document.getElementById("inapp-ok").addEventListener("click", function () { pop.hidden = true; });
+        } else {
+            document.getElementById("open-hint").hidden = false;
+        }
     })();
     </script>
 </body>
