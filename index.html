@@ -21,7 +21,7 @@
             <h1>Tiny Tractor: Farming&nbsp;Sim</h1>
             <p class="pitch">Mow huge fields with your tractor. Sell the harvest, upgrade, expand.</p>
 
-            <div class="stores">
+            <div class="stores" id="stores">
                 <div class="store">
                     <a class="badge play-badge" href="https://play.google.com/store/apps/details?id=com.heelmint.farming"
                        aria-label="Get Tiny Tractor: Farming Sim on Google Play">
@@ -37,6 +37,7 @@
                     <a class="dl-btn" href="https://apps.apple.com/fi/app/tiny-tractor-farming-sim/id6812500088">Download</a>
                 </div>
             </div>
+            <p class="open-hint" id="open-hint" hidden>This browser cannot open the store. Tap <b>&ctdot;</b> and choose <b>Open in browser</b>.</p>
         </div>
 
         <figure class="phone">
@@ -53,5 +54,44 @@
         <a href="support/tiny-tractor.html">Support</a>
         <a href="mailto:pessi@heelmintgames.com">pessi@heelmintgames.com</a>
     </footer>
+    <script>
+    // In-app browsers (TikTok, Instagram, Facebook) cannot hand the store's
+    // own URL scheme on, so a plain https store link dies with "action can't
+    // be completed". On those, open the scheme ourselves; if the page is still
+    // here after that, say how to open it in a real browser.
+    (function () {
+        var ua = navigator.userAgent || "";
+        var inApp = /musical_ly|Bytedance|TikTok|Instagram|FBAN|FBAV|Snapchat|Line\//i.test(ua);
+        if (!inApp) return;
+        var ios = /iPhone|iPad|iPod/i.test(ua);
+        var android = /Android/i.test(ua);
+        var APPLE_ID = "6812500088", PLAY_ID = "com.heelmint.farming";
+        var hint = document.getElementById("open-hint");
+        document.getElementById("stores").addEventListener("click", function (e) {
+            var a = e.target.closest("a");
+            if (!a) return;
+            var apple = a.href.indexOf("apps.apple.com") !== -1;
+            if (apple && ios) {
+                e.preventDefault();
+                tryOpen(["itms-appss://apps.apple.com/app/id" + APPLE_ID,
+                         "x-safari-https://apps.apple.com/fi/app/tiny-tractor-farming-sim/id" + APPLE_ID]);
+            } else if (!apple && android) {
+                e.preventDefault();
+                tryOpen(["market://details?id=" + PLAY_ID,
+                         "intent://details?id=" + PLAY_ID + "#Intent;scheme=market;package=com.android.vending;end"]);
+            }
+        });
+        function tryOpen(urls) {
+            var i = 0, left = Date.now();
+            function next() {
+                if (i >= urls.length) { hint.hidden = false; return; }
+                location.href = urls[i++];
+                // a hand-off that worked hides the page; a refused one leaves it
+                setTimeout(function () { if (!document.hidden && Date.now() - left < 4000) next(); }, 1200);
+            }
+            next();
+        }
+    })();
+    </script>
 </body>
 </html>

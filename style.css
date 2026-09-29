@@ -242,6 +242,19 @@ body.home .dl-btn {
     transition: transform 120ms ease, filter 120ms ease;
 }
 
+body.home .open-hint {
+    margin: 0.9rem 0 0;
+    padding: 0.6rem 0.9rem;
+    border: 1.5px dashed #3a3a40;
+    border-radius: 10px;
+    color: #c9c9cf;
+    font-size: 0.95rem;
+}
+
+body.home .open-hint b {
+    color: var(--fg);
+}
+
 body.home .dl-btn:hover,
 body.home .dl-btn:focus-visible {
     transform: translateY(-1px);
