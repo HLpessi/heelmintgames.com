@@ -308,7 +308,27 @@ body.home .site-footer a:hover {
         margin-right: auto;
     }
 
+    /* both stores side by side even on a phone: smaller badges, matched heights */
     body.home .stores {
         justify-content: center;
+        flex-wrap: nowrap;
+        gap: 0.75rem;
+    }
+
+    body.home .play-badge {
+        margin: -10px -10px;
+    }
+
+    body.home .play-badge img {
+        width: 168px;
+    }
+
+    body.home .app-store-badge img {
+        height: 44px;
+    }
+
+    body.home .dl-btn {
+        padding: 0.45rem 1.25rem;
+        font-size: 0.95rem;
     }
 }
