@@ -230,6 +230,36 @@ body.home .badge:focus-visible {
     border-radius: 12px;
 }
 
+/* Roblox: a plain button above the store badges, black like them; text only,
+   since Roblox's brand rules keep its logo for Roblox itself */
+body.home .roblox-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    padding: 0 2rem;
+    margin-bottom: 1.25rem;
+    border: 1.5px solid #a6a6a6;
+    border-radius: 12px;
+    background: #000;
+    color: #fff;
+    font-weight: 800;
+    font-size: 1.2rem;
+    letter-spacing: 0.01em;
+    text-decoration: none;
+    transition: transform 120ms ease;
+}
+
+body.home .roblox-btn:hover,
+body.home .roblox-btn:focus-visible {
+    transform: scale(1.03);
+}
+
+body.home .roblox-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
 body.home .dl-btn {
     display: inline-block;
     padding: 0.55rem 1.6rem;
@@ -400,6 +430,11 @@ body.home .site-footer a:hover {
 
     body.home .app-store-badge img {
         height: 44px;
+    }
+
+    body.home .roblox-btn {
+        height: 48px;
+        font-size: 1.05rem;
     }
 
     body.home .dl-btn {
