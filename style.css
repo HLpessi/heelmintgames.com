@@ -230,14 +230,15 @@ body.home .badge:focus-visible {
     border-radius: 12px;
 }
 
-/* Roblox: a plain button above the store badges, black like them; text only,
-   since Roblox's brand rules keep its logo for Roblox itself */
+/* Roblox: a button above the store badges, black like them, with Roblox's
+   tilted square; it pulses like the badges (the pulse on the link, the hover
+   grow on its content, so the two never fight over one transform) */
 body.home .roblox-btn {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     height: 60px;
-    padding: 0 2rem;
+    padding: 0 1.75rem 0 1.4rem;
     margin-bottom: 1.25rem;
     border: 1.5px solid #a6a6a6;
     border-radius: 12px;
@@ -247,12 +248,35 @@ body.home .roblox-btn {
     font-size: 1.2rem;
     letter-spacing: 0.01em;
     text-decoration: none;
+    animation: badge-pulse 2.4s ease-in-out infinite;
+}
+
+body.home .roblox-inner {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
     transition: transform 120ms ease;
+}
+
+body.home .roblox-logo {
+    width: 1.75rem;
+    height: 1.75rem;
+    fill: #fff;
+    flex: none;
 }
 
 body.home .roblox-btn:hover,
 body.home .roblox-btn:focus-visible {
+    animation-play-state: paused;
+}
+
+body.home .roblox-btn:hover .roblox-inner,
+body.home .roblox-btn:focus-visible .roblox-inner {
     transform: scale(1.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    body.home .roblox-btn { animation: none; }
 }
 
 body.home .roblox-btn:focus-visible {
